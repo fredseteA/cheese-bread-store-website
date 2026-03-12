@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm cream background */
+    --background: 42 30% 97%;
+    --foreground: 25 40% 15%;
+
+    /* Cards with subtle warmth */
+    --card: 40 25% 95%;
+    --card-foreground: 25 40% 15%;
+
+    --popover: 40 25% 95%;
+    --popover-foreground: 25 40% 15%;
+
+    /* Primary: Golden amber (cheese) */
+    --primary: 38 85% 50%;
+    --primary-foreground: 25 40% 10%;
+
+    /* Secondary: Terracotta */
+    --secondary: 18 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted tones */
+    --muted: 40 20% 90%;
+    --muted-foreground: 25 25% 45%;
+
+    /* Accent: Deep green (Minas tradition) */
+    --accent: 145 45% 28%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 35 25% 85%;
+    --input: 35 25% 85%;
+    --ring: 38 85% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom colors */
+    --cheese-gold: 38 90% 55%;
+    --cheese-gold-light: 40 85% 75%;
+    --terracotta: 18 60% 55%;
+    --terracotta-dark: 15 55% 40%;
+    --cream: 42 40% 94%;
+    --cream-dark: 40 30% 88%;
+    --minas-green: 145 45% 28%;
+    --minas-green-light: 145 40% 40%;
+    --brown-dark: 25 40% 20%;
+    --brown-medium: 25 30% 35%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(38 90% 55% / 0.15), hsl(18 60% 55% / 0.1));
+    --gradient-card: linear-gradient(180deg, hsl(40 25% 97%), hsl(40 25% 93%));
+    --gradient-cta: linear-gradient(135deg, hsl(38 85% 50%), hsl(38 90% 60%));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(25 40% 20% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(25 40% 20% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(25 40% 20% / 0.2);
+
+    /* Typography */
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Source Sans 3', sans-serif;
+  }
+
+  .dark {
+    --background: 25 35% 10%;
+    --foreground: 42 30% 95%;
+    --card: 25 30% 15%;
+    --card-foreground: 42 30% 95%;
+    --popover: 25 30% 15%;
+    --popover-foreground: 42 30% 95%;
+    --primary: 38 85% 55%;
+    --primary-foreground: 25 40% 10%;
+    --secondary: 18 55% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 25 25% 20%;
+    --muted-foreground: 40 20% 65%;
+    --accent: 145 40% 35%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 25 20% 25%;
+    --input: 25 20% 25%;
+    --ring: 38 85% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+  }
+
+  .bg-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a853' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+}
