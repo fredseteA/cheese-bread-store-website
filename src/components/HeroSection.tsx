@@ -1,86 +1,90 @@
-import heroImage from "@/assets/hero-pao-de-queijo.jpg";
-import { Star } from "lucide-react";
-
 export function HeroSection() {
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ backgroundColor: "#f0b429", height: "clamp(420px, 60vw, 680px)" }}
+      className="relative w-full"
+      style={{ height: "clamp(480px, 52vw, 720px)" }}
     >
-      {/* ── Imagem: ocupa ~65% lado direito, altura 100%, sem gap ── */}
-      <div className="absolute inset-y-0 right-0" style={{ width: "65%" }}>
+      {/* ── Imagem ocupa 100% do hero ── */}
+      <div className="absolute inset-0 w-full h-full">
         <img
-          src={heroImage}
+          src="/hero-image.png"
           alt="Pão de Queijo Mineiro artesanal"
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Fade suave da imagem para o fundo amarelo */}
-        <div
-          className="absolute inset-y-0 left-0 w-28 pointer-events-none"
-          style={{
-            background: "linear-gradient(to right, #f0b429, transparent)",
-          }}
+          className="w-full h-full object-cover object-[center_65%] block"
         />
       </div>
 
-      {/* ── Área esquerda: card verde centralizado verticalmente ── */}
+      {/* ── Conteúdo: canto inferior esquerdo sobre a foto ── */}
       <div
-        className="absolute inset-y-0 left-0 flex items-center"
-        style={{ width: "38%", paddingLeft: "clamp(1.25rem, 4vw, 4.5rem)" }}
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          zIndex: 5,
+          padding: "0 clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5.5rem)",
+        }}
       >
-        <div
-          className="rounded-2xl w-full max-w-[280px]"
-          style={{ backgroundColor: "#3d6b35", padding: "clamp(1.25rem, 2.5vw, 2rem)" }}
+        {/* Título serif grande */}
+        <h1
+          style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontWeight: 700,
+            fontSize: "clamp(2.4rem, 6vw, 5.2rem)",
+            color: "#f5e8d0",
+            lineHeight: 0.95,
+            letterSpacing: "-0.02em",
+            marginBottom: "0.6rem",
+          }}
         >
-          {/* Estrelas + texto de avaliação */}
-          <div className="flex items-center gap-1 flex-wrap mb-3">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className="fill-current shrink-0"
-                style={{ color: "#f0b429", width: "13px", height: "13px" }}
-              />
-            ))}
-            <span
-              className="text-xs leading-tight ml-0.5"
-              style={{ color: "#b8d9b0" }}
-            >
-              Adorado por centenas de clientes
-            </span>
-          </div>
+          Pão de Queijo<br />Mineiro
+        </h1>
 
-          {/* Título grande bold uppercase */}
-          <h1
-            className="font-black uppercase text-white leading-none mb-5"
-            style={{
-              fontSize: "clamp(1.35rem, 2.6vw, 2.25rem)",
-              lineHeight: 1.0,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Pão de Queijo
-            <br />
-            Mineiro
-            <br />
-            Artesanal!
-          </h1>
+        {/* Subtítulo leve */}
+        <p
+          style={{
+            fontFamily: "'Inter', system-ui, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(12px, 1.4vw, 14px)",
+            color: "rgba(245,232,208,0.72)",
+            lineHeight: 1.65,
+            maxWidth: 380,
+            marginBottom: "1.5rem",
+            letterSpacing: "0.01em",
+          }}
+        >
+          Feito artesanalmente com Queijo Canastra legítimo.<br />
+          Sabor genuíno de Minas direto na sua porta.
+        </p>
 
-          {/* Botão pill amarelo */}
-          <a
-            href="#produtos"
-            className="flex items-center justify-center w-full font-bold uppercase rounded-full transition-opacity hover:opacity-90"
-            style={{
-              backgroundColor: "#f0b429",
-              color: "#1a1200",
-              fontSize: "0.7rem",
-              letterSpacing: "0.1em",
-              padding: "0.6rem 1.25rem",
-            }}
-          >
-            Ver produtos
-          </a>
-        </div>
+        {/* Botão pill com borda translúcida */}
+        <a
+          href="#produtos"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            backgroundColor: "rgba(20,8,0,0.55)",
+            border: "1px solid rgba(245,220,160,0.45)",
+            color: "#f5e8d0",
+            fontFamily: "'Inter', system-ui, sans-serif",
+            fontWeight: 500,
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            padding: "10px 24px",
+            borderRadius: 100,
+            textDecoration: "none",
+            backdropFilter: "blur(4px)",
+            transition: "background 0.2s",
+          }}
+          onMouseEnter={(e) =>
+            ((e.target as HTMLElement).style.backgroundColor = "rgba(50,20,0,0.75)")
+          }
+          onMouseLeave={(e) =>
+            ((e.target as HTMLElement).style.backgroundColor = "rgba(20,8,0,0.55)")
+          }
+        >
+          Explorar produtos →
+        </a>
       </div>
+
     </section>
   );
 }

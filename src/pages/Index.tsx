@@ -3,7 +3,7 @@ import { StoreProvider } from "@/contexts/StoreContext";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductList } from "@/components/ProductList";
-import { AboutSection } from "@/components/AboutSection";
+import { QueijoCanastra } from "@/components/QueijoCanastra";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -19,7 +19,7 @@ const Index = () => {
         <main>
           <HeroSection />
           <ProductList />
-          <AboutSection />
+          <QueijoCanastra />
         </main>
         
         <Footer />
