@@ -1,5 +1,6 @@
 import { ProductCard } from "@/components/ProductCard";
 import { useStore } from "@/contexts/StoreContext";
+import PaoHorizontal from "/src/assets/pao-tradicional-horizontal.jpeg";
 import { Settings, ShoppingBag } from "lucide-react";
 
 export function ProductList() {
@@ -141,7 +142,7 @@ export function ProductList() {
             style={{ flex: "1 1 45%", minHeight: 180 }}
           >
             <img
-              src="/src/assets/pao-tradicional-horizontal.jpeg"
+              src= { PaoHorizontal }
               alt="Pão de queijo no café da manhã"
               className="w-full h-full object-cover"
               style={{ minHeight: 180 }}
@@ -150,7 +151,7 @@ export function ProductList() {
               className="absolute inset-0 pointer-events-none hidden md:block"
               style={{ 
                 background: "linear-gradient(to right, #a37c53 0%, transparent 35%)",
-                left: "-1px" // Isso puxa o gradiente 1px para a esquerda, cobrindo a fenda
+                left: "-1px" 
               }}
             />
           </div>
