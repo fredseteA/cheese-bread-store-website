@@ -1,7 +1,7 @@
 import { Product } from "@/types/product";
-import paoTradicional from "@/assets/pao-tradicional.jpg";
-import paoLinguica from "@/assets/pao-linguica.jpg";
-import paoGoiabada from "@/assets/pao-goiabada.jpg";
+import paoTradicional from "@/assets/pao-tradicional-quadrado.jpeg";
+import paoLinguica from "@/assets/pao-linguica-quadrado.jpeg";
+import paoGoiabada from "@/assets/pao-goiabada-quadrado.jpeg";
 
 // Dados dos produtos 
 export const initialProducts: Product[] = [

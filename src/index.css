@@ -68,6 +68,7 @@
     /* Typography */
     --font-display: 'Playfair Display', serif;
     --font-body: 'Source Sans 3', sans-serif;
+
   }
 
   .dark {
@@ -90,6 +91,23 @@
     --border: 25 20% 25%;
     --input: 25 20% 25%;
     --ring: 38 85% 55%;
+  }
+
+  .header-inner{
+    transition: all 0.35s ease;
+  }
+
+  .header-transparent{
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .header-floating{
+    background: rgba(26, 15, 5, 0.45);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   }
 }
 
