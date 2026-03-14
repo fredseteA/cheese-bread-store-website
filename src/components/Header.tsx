@@ -83,7 +83,6 @@ export function Header({ onCartClick }: HeaderProps) {
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  // Cada item: label exibido + rota destino
   const navItems = [
     { label: "Início",   to: "/" },
     { label: "Produtos", to: "/#produtos" },
@@ -117,32 +116,20 @@ export function Header({ onCartClick }: HeaderProps) {
             {/* ── Logo ── */}
             <Link
               to="/"
-              className="flex items-center gap-2.5 select-none"
+              className="flex items-center select-none"
               style={{ textDecoration: "none" }}
               onClick={handleLogoClick as any}
             >
-              <div
-                className="flex items-center justify-center rounded-full shrink-0"
+              <img
+                src="/logo-quadrada.png"
+                alt="Pão de Queijo Mineiro"
                 style={{
-                  width: 36, height: 36,
-                  background: "rgba(245,220,160,0.18)",
-                  border: "1.5px solid rgba(245,220,160,0.5)",
+                  height: 40,
+                  width: "auto",
+                  objectFit: "contain",
+                  borderRadius: 6,
                 }}
-              >
-                <span style={{ fontSize: 18, lineHeight: 1 }}>🧀</span>
-              </div>
-              <span
-                style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontWeight: 700,
-                  fontSize: "clamp(14px, 1.8vw, 18px)",
-                  color: "#f5e8d0",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1,
-                }}
-              >
-                Pão de Queijo
-              </span>
+              />
             </Link>
 
             {/* ── Nav desktop ── */}

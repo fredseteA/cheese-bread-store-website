@@ -7,7 +7,7 @@ export function HeroSection() {
       {/* ── Imagem ocupa 100% do hero ── */}
       <div className="absolute inset-0 w-full h-full">
         <img
-          src="/hero-image.png"
+          src="src/assets/hero-image.png"
           alt="Pão de Queijo Mineiro artesanal"
           className="w-full h-full object-cover object-[center_65%] block"
         />

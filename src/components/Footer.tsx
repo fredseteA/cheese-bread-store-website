@@ -15,20 +15,26 @@ export function Footer() {
       >
         {/* ── Marca ── */}
         <div>
-          <div className="flex items-center gap-2.5 mb-4">
+          <div className="flex flex-col items-start gap-3 mb-4">
             <div
               className="flex items-center justify-center rounded-full shrink-0"
-              style={{ width: 36, height: 36, background: "rgba(245,220,160,0.12)", border: "1.5px solid rgba(245,220,160,0.3)" }}
+              style={{height: 36, background: "rgba(245,220,160,0.12)", border: "1.5px solid rgba(245,220,160,0.3)" }}
             >
-              <span style={{ fontSize: 17, lineHeight: 1 }}>🧀</span>
+              <img
+                src="/logo-quadrada.png"
+                alt="Pão de Queijo Mineiro"
+                style={{
+                  height: 60,
+                  width: "auto",
+                  objectFit: "contain",
+                  borderRadius: 8,
+                }}
+              />
             </div>
-            <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 16, color: "#f5e8d0", letterSpacing: "-0.01em" }}>
-              Pão de Queijo Mineiro
-            </span>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(245,232,208,0.45)", lineHeight: 1.75 }}>
+              <br />O autêntico sabor de Minas Gerais em cada mordida. <br />Produção artesanal com Queijo Canastra legítimo, direto de Iguatama — MG.
+            </p>
           </div>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 13, color: "rgba(245,232,208,0.45)", lineHeight: 1.75 }}>
-            O autêntico sabor de Minas Gerais em cada mordida. Produção artesanal com Queijo Canastra legítimo, direto de Iguatama — MG.
-          </p>
         </div>
 
         {/* ── Contato ── */}
@@ -64,7 +70,7 @@ export function Footer() {
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(245,232,208,0.55)", textDecoration: "none" }}
               >
                 <Instagram style={{ width: 14, height: 14, color: "#c47820", flexShrink: 0 }} />
-                @paodequejomineiro
+                @pao_de_queijo_mineiro_rj
               </a>
             </li>
           </ul>

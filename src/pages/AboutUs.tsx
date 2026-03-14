@@ -1,4 +1,4 @@
-import canastra1 from "@/assets/queijo-canastra-1.jpg";
+import canastra1 from "@/assets/queijo-horizontal.jpg";
 import canastra2 from "@/assets/queijo-canastra-2.jpg";
 import canastra3 from "@/assets/queijo-canastra-3.jpg";
 import heroCanastra from "@/assets/hero-queijo-canastra.jpg";
@@ -10,9 +10,7 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-
-      <div id="sobre" style={{ background: "#f5ede0", paddingTop: "clamp(52px, 7vw, 68px)" }}>
-
+      <div id="sobre" style={{ background: "#1a0f05", paddingTop: "clamp(52px, 7vw, 68px)" }}>
         {/* ══ HERO ══ */}
         <section className="relative overflow-hidden" style={{ minHeight: "clamp(420px, 55vw, 680px)" }}>
           <img
@@ -41,18 +39,35 @@ export default function AboutUs() {
         </section>
 
         {/* ══ HISTÓRIA DA DONA ══ */}
-        <section style={{ background: "#f5ede0" }}>
-          <div className="mx-auto flex flex-col lg:flex-row items-center gap-0" style={{ maxWidth: 1100 }}>
-            <div className="relative overflow-hidden flex-shrink-0 w-full lg:w-auto" style={{ flex: "1 1 42%", minHeight: "clamp(280px, 40vw, 520px)" }}>
-              <img src={canastra1} alt="Produção artesanal" className="w-full h-full object-cover" />
-              <div className="absolute bottom-6 right-0 flex items-center gap-2" style={{ background: "#2a1200", color: "#f5e8d0", padding: "10px 18px 10px 14px", borderRadius: "12px 0 0 12px" }}>
-                <MapPin style={{ width: 14, height: 14, color: "#c47820" }} />
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 600, letterSpacing: "0.04em" }}>Iguatama, MG</span>
+        <section style={{ background: "#a37c53" }}>
+          <div
+            className="mx-auto flex flex-col lg:flex-row items-center gap-12"
+            style={{ maxWidth: 1100, padding: "clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 4.5rem)" }}
+          >
+            {/* Imagem como card */}
+            <div
+              className="relative overflow-hidden flex-shrink-0 rounded-2xl w-full lg:w-auto shadow-xl"
+              style={{ flex: "0 0 340px", height: 600 }}
+            >
+              <img
+                src={canastra1}
+                alt="Produção artesanal"
+                className="w-full h-full object-cover"
+              />
+              <div
+                className="absolute bottom-4 right-0 flex items-center gap-2"
+                style={{ background: "#2a1200", color: "#f5e8d0", padding: "8px 16px 8px 12px", borderRadius: "10px 0 0 10px" }}
+              >
+                <MapPin style={{ width: 13, height: 13, color: "#c47820" }} />
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: "0.04em" }}>Iguatama, MG</span>
               </div>
             </div>
 
-            <div className="flex flex-col justify-center" style={{ flex: "1 1 58%", padding: "clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4.5rem)" }}>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#c47820", marginBottom: 14 }}>Quem somos</span>
+            {/* Coluna de texto */}
+            <div className="flex flex-col justify-center">
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#2a1200", marginBottom: 14 }}>
+                Quem somos
+              </span>
               <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", color: "#2a1200", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "1.25rem" }}>
                 Uma filha de Minas<br />que não esqueceu<br />de onde veio.
               </h2>
@@ -82,7 +97,7 @@ export default function AboutUs() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { icon: Mountain, title: "Ingredientes de Iguatama", desc: "O Queijo Canastra, o polvilho e os demais ingredientes vêm diretamente de Minas Gerais — sem atalhos, sem substitutos." },
                 { icon: Leaf,     title: "Receita de família",        desc: "A fórmula nunca foi industrializada. É a mesma passada de geração em geração, feita à mão, com tempo e cuidado." },
@@ -108,32 +123,59 @@ export default function AboutUs() {
         </section>
 
         {/* ══ FAIXA FINAL ══ */}
-        <section style={{ background: "#f5ede0" }}>
-          <div className="mx-auto flex flex-col lg:flex-row items-stretch" style={{ maxWidth: 1100 }}>
-            <div className="flex flex-col justify-center" style={{ flex: "1 1 55%", padding: "clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4.5rem)" }}>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#c47820", marginBottom: 14 }}>Venha provar</span>
+        <section className="relative overflow-hidden" style={{ background: "#a37c53" }}>
+          <div
+            className="absolute inset-y-0 right-0 hidden lg:block"
+            style={{ width: "50%" }}
+          >
+            <img
+              src={canastra3}
+              alt="Queijo Canastra e pão de queijo"
+              className="w-full h-full object-cover"
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to right, #a37c53 0%, transparent 20%)" }}
+            />
+          </div>
+
+          <div className="relative mx-auto flex flex-col lg:flex-row items-stretch" style={{ maxWidth: 1100 }}>
+            <div
+              className="flex flex-col justify-center"
+              style={{ flex: "1 1 55%", padding: "clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4.5rem)" }}
+            >
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "#46220f", marginBottom: 14 }}>
+                Venha provar
+              </span>
               <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", color: "#2a1200", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "1.25rem" }}>
-                Um pedaço de Iguatama<br /><span style={{ color: "#8b4513" }}>na sua casa.</span>
+                Um pedaço de Iguatama<br />
+                <span style={{ color: "#8b4513" }}>na sua casa.</span>
               </h2>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "clamp(13px, 1.2vw, 15px)", color: "#5a4030", lineHeight: 1.85, marginBottom: "2rem", maxWidth: 420 }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "clamp(13px, 1.2vw, 15px)", color: "#46220f", lineHeight: 1.85, marginBottom: "2rem", maxWidth: 420 }}>
                 Quem prova uma vez entende por que o pão de queijo mineiro é diferente de qualquer outro. Não é só a receita — é a terra, é a gente, é a história que vai junto.
               </p>
-              <a href="/" className="inline-flex items-center gap-2 rounded-full self-start transition-opacity hover:opacity-85"
-                style={{ background: "#8b4513", color: "#fff", fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "0.09em", textTransform: "uppercase", padding: "12px 28px", textDecoration: "none" }}
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 rounded-full self-start transition-opacity hover:opacity-85"
+                style={{ background: "#46220f", color: "#fff", fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "0.09em", textTransform: "uppercase", padding: "12px 28px", textDecoration: "none" }}
               >
                 Ver nossos produtos →
               </a>
             </div>
 
-            <div className="relative overflow-hidden flex-shrink-0 w-full lg:w-auto" style={{ flex: "1 1 45%", minHeight: "clamp(240px, 30vw, 420px)" }}>
-              <img src={canastra3} alt="Queijo Canastra e pão de queijo" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 hidden lg:block" style={{ background: "linear-gradient(to right, #f5ede0 0%, transparent 25%)" }} />
+            <div
+              className="relative overflow-hidden flex-shrink-0 w-full lg:min-h-[420px]"
+              style={{ flex: "1 1 45%" }}
+            >
+              <img
+                src={canastra3}
+                alt="Queijo Canastra e pão de queijo"
+                className="w-full h-auto object-cover lg:hidden"
+              />
             </div>
           </div>
         </section>
-
       </div>
-
       <Footer />
     </>
   );
