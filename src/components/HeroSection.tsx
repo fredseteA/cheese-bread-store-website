@@ -1,3 +1,5 @@
+import heroImage from "@/assets/hero-image.png";
+
 export function HeroSection() {
   return (
     <section
@@ -7,7 +9,7 @@ export function HeroSection() {
       {/* ── Imagem ocupa 100% do hero ── */}
       <div className="absolute inset-0 w-full h-full">
         <img
-          src="src/assets/hero-image.png"
+          src={heroImage}
           alt="Pão de Queijo Mineiro artesanal"
           className="w-full h-full object-cover object-[center_65%] block"
         />
