@@ -1,4 +1,4 @@
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../../../features/products/components/ProductCard";
 import { useStore } from "@/features/carts/context/CartContext";
 import PaoHorizontal from "/src/assets/pao-tradicional-horizontal.jpeg";
 import { Settings, ShoppingBag } from "lucide-react";
@@ -15,7 +15,7 @@ export function ProductList() {
       : "R$ 18";
 
   return (
-    <section id="produtos" style={{ background: "#caab8a" }}>
+    <section id="produtos" style={{ background: "#1a0f05" }}>
 
       {/* ══ CABEÇALHO + GRID ══ */}
       <div
@@ -31,8 +31,8 @@ export function ProductList() {
           <span
             className="inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4"
             style={{
-              background: "rgba(139,69,19,0.12)",
-              color: "#8b4513",
+              background: "rgba(196,120,32,0.12)",
+              color: "#c47820",
               fontFamily: "'Inter', sans-serif",
               letterSpacing: "0.04em",
             }}
@@ -45,7 +45,7 @@ export function ProductList() {
               fontFamily: "'Playfair Display', Georgia, serif",
               fontWeight: 700,
               fontSize: "clamp(26px, 4vw, 38px)",
-              color: "#2a1200",
+              color: "#f5e8d0",
               letterSpacing: "-0.02em",
               marginBottom: 10,
             }}
@@ -57,7 +57,7 @@ export function ProductList() {
             style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: 14,
-              color: "#7a6050",
+              color: "rgba(245,232,208,0.65)",
               maxWidth: 480,
               margin: "0 auto",
               lineHeight: 1.6,
@@ -71,11 +71,11 @@ export function ProductList() {
             <div
               className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
               style={{
-                background: "rgba(139,69,19,0.12)",
-                color: "#8b4513",
+                background: "rgba(196,120,32,0.12)",
+                color: "#c47820",
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: 500,
-                border: "1px solid rgba(139,69,19,0.2)",
+                border: "1px solid rgba(196,120,32,0.2)",
               }}
             >
               <Settings className="h-4 w-4 animate-spin" style={{ animationDuration: "3s" }} />
@@ -102,13 +102,9 @@ export function ProductList() {
       >
         <div
           className="relative rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch"
-          style={{ background: "#a37c53", minHeight: "clamp(160px, 20vw, 220px)" }}
+          style={{ background: "#2a1200", minHeight: "clamp(160px, 20vw, 220px)" }}
         >
-          {/* Sombra decorativa */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(139,69,19,0.07) 0%, transparent 70%)" }}
-          />
+          
 
           {/* Esquerda — texto */}
           <div
@@ -116,12 +112,12 @@ export function ProductList() {
             style={{ padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)", flex: "1 1 55%" }}
           >
             <h3
-              style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(20px, 2.8vw, 28px)", color: "#2a1200", lineHeight: 1.15, marginBottom: 10, letterSpacing: "-0.01em" }}
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(20px, 2.8vw, 28px)", color: "#f5e8d0", lineHeight: 1.15, marginBottom: 10, letterSpacing: "-0.01em" }}
             >
               Manhãs mais felizes
             </h3>
             <p
-              style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(12px, 1.1vw, 13px)", color: "rgba(42,18,0,0.65)", lineHeight: 1.7, marginBottom: 20, maxWidth: 340 }}
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(12px, 1.1vw, 13px)", color: "rgba(245,232,208,0.65)", lineHeight: 1.7, marginBottom: 20, maxWidth: 340 }}
             >
               Comece o dia com o sabor genuíno de Minas. Nosso pão de queijo artesanal é o
               acompanhamento perfeito para o seu café — fresquinho, crocante por fora e macio por dentro.
@@ -129,7 +125,7 @@ export function ProductList() {
             <a
               href="#produtos"
               className="inline-flex items-center gap-2 rounded-full self-start transition-opacity hover:opacity-85"
-              style={{ background: "#8b4513", color: "#fff", fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "0.09em", textTransform: "uppercase", padding: "10px 22px", textDecoration: "none" }}
+              style={{ background: "#c47820", color: "#1a0f05", fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "0.09em", textTransform: "uppercase", padding: "10px 22px", textDecoration: "none" }}
             >
               <ShoppingBag style={{ width: 13, height: 13 }} />
               Peça agora
@@ -142,16 +138,16 @@ export function ProductList() {
             style={{ flex: "1 1 45%", minHeight: 180 }}
           >
             <img
-              src= { PaoHorizontal }
+              src={PaoHorizontal}
               alt="Pão de queijo no café da manhã"
               className="w-full h-full object-cover"
               style={{ minHeight: 180 }}
             />
             <div
               className="absolute inset-0 pointer-events-none hidden md:block"
-              style={{ 
-                background: "linear-gradient(to right, #a37c53 0%, transparent 35%)",
-                left: "-1px" 
+              style={{
+                background: "linear-gradient(to right, #2a1200 0%, #2a1200 5%, transparent 50%)",
+                left: 0
               }}
             />
           </div>

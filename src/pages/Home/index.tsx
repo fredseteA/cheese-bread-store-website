@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { StoreProvider } from "@/features/carts/context/CartContext";
-import { Header } from "@/components/layout/Header";
-import { HeroSection } from "@/pages/Home/components/HeroSection";
-import { ProductList } from "@/features/products/components/ProductList";
-import { QueijoCanastra } from "@/pages/Home/components/QueijoCanastra";
-import { Footer } from "@/components/layout/Footer";
+import { Header, Footer } from "@/components/layout";
+import { HeroSection, CheeseSection, ProductList } from "@/pages/Home/components";
 import { CartDrawer } from "@/features/carts/components/CartDrawer";
 import { WhatsAppButton } from "@/features/whatsapp/WhatsAppButton";
 
@@ -19,7 +16,7 @@ const Index = () => {
         <main>
           <HeroSection />
           <ProductList />
-          <QueijoCanastra />
+          <CheeseSection />
         </main>
         
         <Footer />

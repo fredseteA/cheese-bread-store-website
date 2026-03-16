@@ -36,11 +36,11 @@ export function ProductCard({ product }: ProductCardProps) {
         !isAvailable ? "opacity-70" : ""
       }`}
       style={{ 
-        boxShadow: "0 2px 16px rgba(61,28,0,0.09)", 
-        background: "#f7dbbb",
+        boxShadow: "0 2px 16px rgba(0,0,0,0.25)", 
+        background: "#2a1200",
       }}
     >
-      {/* ── Imagem — altura fixa pequena no mobile ── */}
+      {/* ── Imagem ── */}
       <div className="relative aspect-square overflow-hidden">
         <img
           src={product.image}
@@ -51,7 +51,9 @@ export function ProductCard({ product }: ProductCardProps) {
         />
 
         {product.isStuffed && (
-          <Badge className="absolute top-3 left-3 z-10 bg-terracotta text-secondary-foreground font-body">
+          <Badge className="absolute top-3 left-3 z-10 font-body"
+            style={{ background: "#c47820", color: "#1a0f05" }}
+          >
             <Star className="h-3 w-3 mr-1" />
             Recheado
           </Badge>
@@ -63,7 +65,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </Badge>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* ── Conteúdo ── */}
@@ -73,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: "clamp(13px, 1.1vw, 15px)",
-            color: "#2a1200",
+            color: "#f5e8d0",
           }}
         >
           {product.name}
@@ -84,7 +86,7 @@ export function ProductCard({ product }: ProductCardProps) {
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 11,
-            color: "#7a6050",
+            color: "rgba(245,232,208,0.55)",
             lineHeight: 1.5,
           }}
         >
@@ -99,12 +101,12 @@ export function ProductCard({ product }: ProductCardProps) {
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontSize: "clamp(14px, 1.3vw, 17px)",
-                color: "#8b4513",
+                color: "#c47820",
               }}
             >
               {formatPrice(product.price)}
             </span>
-            <span style={{ fontSize: 10, color: "#a08070", fontFamily: "'Inter', sans-serif" }}>
+            <span style={{ fontSize: 10, color: "rgba(245,232,208,0.4)", fontFamily: "'Inter', sans-serif" }}>
               Pacote com 30 un.
             </span>
           </div>
@@ -112,7 +114,7 @@ export function ProductCard({ product }: ProductCardProps) {
             style={{
               fontSize: 13,
               fontWeight: 600,
-              color: isAvailable ? "#4a7c3f" : "#c0392b",
+              color: isAvailable ? "#7ec97a" : "#c0392b",
               fontFamily: "'Inter', sans-serif",
             }}
           >
@@ -122,8 +124,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Controles admin */}
         {isAdminMode && (
-          <div className="mb-2.5 p-2 rounded-xl" style={{ background: "#f5ede0" }}>
-            <p style={{ fontSize: 10, color: "#7a6050", marginBottom: 5, fontFamily: "'Inter', sans-serif" }}>
+          <div className="mb-2.5 p-2 rounded-xl" style={{ background: "rgba(196,120,32,0.1)", border: "1px solid rgba(196,120,32,0.2)" }}>
+            <p style={{ fontSize: 10, color: "rgba(245,232,208,0.5)", marginBottom: 5, fontFamily: "'Inter', sans-serif" }}>
               Estoque:
             </p>
             <div className="flex items-center gap-1.5">
@@ -159,8 +161,8 @@ export function ProductCard({ product }: ProductCardProps) {
           disabled={!isAvailable}
           className="w-full flex items-center justify-center gap-1.5 rounded-full font-bold transition-all hover:opacity-88 active:scale-95 disabled:cursor-not-allowed"
           style={{
-            background: isAvailable ? "#8b4513" : "#d0c0b0",
-            color: isAvailable ? "#fff" : "#9a8a7a",
+            background: isAvailable ? "#c47820" : "rgba(245,232,208,0.08)",
+            color: isAvailable ? "#1a0f05" : "rgba(245,232,208,0.3)",
             fontFamily: "'Inter', sans-serif",
             fontSize: 11,
             letterSpacing: "0.07em",
