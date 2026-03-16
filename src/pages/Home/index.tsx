@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { StoreProvider } from "@/features/carts/context/CartContext";
 import { Header, Footer } from "@/components/layout";
-import { HeroSection, CheeseSection } from "@/pages/Home/components";
-import { ProductList } from "@/features/products/components/ProductList";
+import { HeroSection, CheeseSection, ProductList } from "@/pages/Home/components";
 import { CartDrawer } from "@/features/carts/components/CartDrawer";
 import { WhatsAppButton } from "@/features/whatsapp/WhatsAppButton";
 
