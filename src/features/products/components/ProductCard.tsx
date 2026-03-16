@@ -1,10 +1,10 @@
 import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Product } from "@/types/product";
-import { useStore } from "@/contexts/StoreContext";
+import { Product } from "@/features/products/types";
+import { useStore } from "@/features/carts/context/CartContext";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/shared/hooks/use-toast";
 
 interface ProductCardProps {
   product: Product;

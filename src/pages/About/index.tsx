@@ -3,8 +3,8 @@ import canastra2 from "@/assets/queijo-canastra-2.jpg";
 import canastra3 from "@/assets/queijo-canastra-3.jpg";
 import heroCanastra from "@/assets/hero-queijo-canastra.jpg";
 import { Heart, Leaf, MapPin, Mountain, Star, Truck } from "lucide-react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 export default function AboutUs() {
   return (

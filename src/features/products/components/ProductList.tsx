@@ -1,5 +1,5 @@
-import { ProductCard } from "@/components/ProductCard";
-import { useStore } from "@/contexts/StoreContext";
+import { ProductCard } from "./ProductCard";
+import { useStore } from "@/features/carts/context/CartContext";
 import PaoHorizontal from "/src/assets/pao-tradicional-horizontal.jpeg";
 import { Settings, ShoppingBag } from "lucide-react";
 

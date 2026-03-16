@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Instagram, MessageCircle } from "lucide-react";
+import { MapPin, Instagram, MessageCircle } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5522981382606";
 

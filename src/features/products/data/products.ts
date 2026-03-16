@@ -1,4 +1,4 @@
-import { Product } from "@/types/product";
+import { Product } from "@/features/products/types";
 import paoTradicional from "@/assets/pao-tradicional-quadrado.jpeg";
 import paoLinguica from "@/assets/pao-linguica-quadrado.jpeg";
 import paoGoiabada from "@/assets/pao-goiabada-quadrado.jpeg";

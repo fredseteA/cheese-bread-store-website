@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Product, CartItem } from "@/types/product";
-import { initialProducts } from "@/data/products";
+import { createContext, useContext, useState, ReactNode } from "react";
+import { Product} from "@/features/products/types";
+import { CartItem } from "@/features/carts/types";
+import { initialProducts } from "@/features/products/data/products";
 
-interface StoreContextType {
+interface CartContextType {
   products: Product[];
   cart: CartItem[];
   isAdminMode: boolean;
@@ -18,7 +19,7 @@ interface StoreContextType {
   getCartCount: () => number;
 }
 
-const StoreContext = createContext<StoreContextType | undefined>(undefined);
+const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -98,7 +99,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <StoreContext.Provider
+    <CartContext.Provider
       value={{
         products,
         cart,
@@ -114,12 +115,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </StoreContext.Provider>
+    </CartContext.Provider>
   );
 }
 
 export function useStore() {
-  const context = useContext(StoreContext);
+  const context = useContext(CartContext);
   if (context === undefined) {
     throw new Error("useStore must be used within a StoreProvider");
   }

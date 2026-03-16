@@ -1,7 +1,7 @@
 import heroCanastra from "@/assets/hero-queijo-canastra.jpg";
-import { Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { MessageCircle, Phone } from "lucide-react";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 const WHATSAPP_NUMBER = "5522981382606";
 
