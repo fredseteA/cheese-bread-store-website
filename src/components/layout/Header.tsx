@@ -1,6 +1,6 @@
 import { ShoppingCart, Settings, X, Eye, EyeOff, Menu } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useStore } from "@/contexts/StoreContext";
+import { useStore } from "@/features/carts/context/CartContext";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;

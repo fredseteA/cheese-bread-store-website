@@ -1,6 +1,6 @@
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useStore } from "@/contexts/StoreContext";
+import { useStore } from "@/features/carts/context/CartContext";
 import {
   Sheet,
   SheetContent,
