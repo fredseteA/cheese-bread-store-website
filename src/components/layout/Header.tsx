@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/features/carts/context/CartContext";
 import { useState, useRef, useCallback, useEffect } from "react";
 
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD;
 
 interface HeaderProps {
   onCartClick?: () => void;
