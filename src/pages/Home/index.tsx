@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { StoreProvider } from "@/contexts/StoreContext";
-import { Header } from "@/components/Header";
-import { HeroSection } from "@/components/HeroSection";
-import { ProductList } from "@/components/ProductList";
-import { QueijoCanastra } from "@/components/QueijoCanastra";
-import { Footer } from "@/components/Footer";
-import { CartDrawer } from "@/components/CartDrawer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { StoreProvider } from "@/features/carts/context/CartContext";
+import { Header, Footer } from "@/components/layout";
+import { HeroSection, CheeseSection, ProductList } from "@/pages/Home/components";
+import { CartDrawer } from "@/features/carts/components/CartDrawer";
+import { WhatsAppButton } from "@/features/whatsapp/WhatsAppButton";
 
 const Index = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -19,7 +16,7 @@ const Index = () => {
         <main>
           <HeroSection />
           <ProductList />
-          <QueijoCanastra />
+          <CheeseSection />
         </main>
         
         <Footer />

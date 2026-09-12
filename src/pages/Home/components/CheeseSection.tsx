@@ -4,14 +4,13 @@ import canastra2 from "@/assets/queijo-canastra-2.jpg";
 import canastra3 from "@/assets/queijo-canastra-3.jpg";
 import canastra4 from "@/assets/serra-da-canastra.jpg";
 
-export function QueijoCanastra() {
+export function CheeseSection() {
   return (
     <section
       id="sobre"
       className="relative overflow-hidden"
       style={{ background: "#0e0600" }}
     >
-      {/* ── Background: canastra4 com gradiente escuro ── */}
       <div className="absolute inset-0 w-full h-full">
         <img
           src={canastra4}
@@ -28,8 +27,6 @@ export function QueijoCanastra() {
           }}
         />
       </div>
-
-      {/* ── Conteúdo centralizado ── */}
       <div
         className="relative z-10 mx-auto"
         style={{
@@ -37,7 +34,6 @@ export function QueijoCanastra() {
           padding: "clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2rem)",
         }}
       >
-        {/* Label */}
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
@@ -52,8 +48,6 @@ export function QueijoCanastra() {
         >
           Ingrediente principal
         </p>
-
-        {/* Título */}
         <h2
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
@@ -69,8 +63,6 @@ export function QueijoCanastra() {
           Queijo Canastra{" "}
           <span style={{ color: "#c47820" }}>Legítimo</span>
         </h2>
-
-        {/* Subtítulo */}
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
@@ -87,13 +79,10 @@ export function QueijoCanastra() {
           este queijo artesanal com denominação de origem é o segredo do
           sabor inconfundível do nosso pão de queijo.
         </p>
-
-        {/* ── Galeria de fotos — hero grande + 3 menores ── */}
         <div
           className="grid gap-2"
           style={{ gridTemplateColumns: "1.6fr 1fr 1fr" }}
         >
-          {/* Hero foto — ocupa 2 linhas */}
           <div
             className="relative overflow-hidden rounded-2xl"
             style={{
@@ -131,8 +120,6 @@ export function QueijoCanastra() {
               </p>
             </div>
           </div>
-
-          {/* Foto 2 */}
           <div
             className="relative overflow-hidden rounded-2xl"
             style={{ height: "clamp(136px, 15vw, 204px)" }}
@@ -144,8 +131,6 @@ export function QueijoCanastra() {
             />
             <div className="absolute inset-0" style={{ background: "rgba(10,4,0,0.2)" }} />
           </div>
-
-          {/* Foto 3 */}
           <div
             className="relative overflow-hidden rounded-2xl"
             style={{ height: "clamp(136px, 15vw, 204px)" }}
@@ -157,8 +142,6 @@ export function QueijoCanastra() {
             />
             <div className="absolute inset-0" style={{ background: "rgba(10,4,0,0.2)" }} />
           </div>
-
-          {/* Foto 4 */}
           <div
             className="relative overflow-hidden rounded-2xl col-start-2"
             style={{ height: "clamp(136px, 15vw, 204px)" }}
@@ -171,8 +154,6 @@ export function QueijoCanastra() {
             <div className="absolute inset-0" style={{ background: "rgba(10,4,0,0.2)" }} />
           </div>
         </div>
-
-        {/* ── Diferenciais ── */}
         <div
           className="grid grid-cols-1 sm:grid-cols-3 mt-12"
           style={{
