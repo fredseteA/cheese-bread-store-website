@@ -1,12 +1,13 @@
 # 🧀 Pão de Queijo Mineiro — Loja de Pão de Queijo Artesanal
 
-> Landing page de e-commerce para uma marca de pão de queijo caseiro mineiro, desenvolvida com React + Vite + TypeScript.
+> Landing page de e-commerce para uma marca de pão de queijo caseiro mineiro, desenvolvida com React + Vite + TypeScript + Firebase.
 
 ![Deploy](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite)
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-3-38BDF8?logo=tailwindcss)
+![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?logo=firebase)
 
 ---
 
@@ -14,7 +15,7 @@
 
 **Pão de Queijo Mineiro** é uma marca artesanal nascida em Iguatama, Minas Gerais. Este site funciona como vitrine digital e apresentação da marca, unindo uma identidade visual acolhedora com funcionalidades de e-commerce.
 
-O site conta a história por trás da marca — uma receita de família transmitida de geração em geração — e permite que os clientes naveguem pelos produtos, gerenciem um carrinho e façam pedidos diretamente pelo WhatsApp.
+O site conta a história por trás da marca — uma receita de família transmitida de geração em geração — e permite que os clientes naveguem pelos produtos, gerenciem um carrinho e façam pedidos diretamente pelo WhatsApp. O estoque é sincronizado em tempo real entre todos os dispositivos através do Firebase Firestore, então a dona da loja consegue atualizar a disponibilidade pelo celular e os clientes sempre veem os números corretos.
 
 Acesse: **[paodequeijomineiro.vercel.app](https://paodequeijomineiro.vercel.app)**
 
@@ -31,17 +32,24 @@ cheese-bread-store-website/
     ├── assets/                      # Imagens (hero, fotos de produtos, fotos do queijo)
     ├── components/
     │   ├── layout/
-    │   │   ├── Header.tsx
+    │   │   ├── Header.tsx           # Contém o gatilho oculto do modo admin (5 cliques + senha)
     │   │   └── Footer.tsx
     │   └── ui/                      # Componentes de UI reutilizáveis (shadcn/ui)
     ├── features/
     │   ├── carts/
-    │   │   └── context/
-    │   │       └── CartContext.tsx   # Estado global do carrinho + modo admin
-    │   ├── products/
+    │   │   ├── context/
+    │   │   │   └── CartContext.tsx  # Estado global do carrinho + modo admin + sync de estoque via Firestore
     │   │   └── components/
-    │   │       └── ProductCard.tsx   # Card de produto com gestão de estoque
+    │   │       └── CartDrawer.tsx   # UI do carrinho + checkout via WhatsApp (desconta estoque)
+    │   ├── products/
+    │   │   ├── components/
+    │   │   │   └── ProductCard.tsx  # Card de produto com gestão de estoque + estado de carregamento
+    │   │   ├── data/
+    │   │   │   └── products.ts      # Dados estáticos dos produtos (nome, preço, imagem, descrição)
+    │   │   └── types.ts
     │   └── whatsapp/                 # Integração com pedidos via WhatsApp
+    ├── lib/
+    │   └── firebase.ts               # Inicialização do app Firebase + instância do Firestore
     ├── layouts/
     │   ├── App.css
     │   └── index.css                 # Estilos globais + diretivas do Tailwind
@@ -78,6 +86,7 @@ cheese-bread-store-website/
 | **shadcn/ui** | Primitivos de UI acessíveis |
 | **Lucide React** | Biblioteca de ícones |
 | **React Router** | Roteamento no lado do cliente |
+| **Firebase Firestore** | Persistência de estoque em tempo real entre dispositivos |
 
 ---
 
@@ -107,19 +116,22 @@ Página com a história e herança da marca. Contém:
 ## 🛒 Funcionalidades
 
 ### Catálogo de Produtos
-- Grid dinâmico de produtos carregado via Context
+- Grid dinâmico de produtos carregado via Context, com os dados principais (nome, preço, descrição, imagem) definidos localmente e o estoque sincronizado em tempo real com o Firestore
 - Cada card exibe: nome, descrição, preço, disponibilidade em estoque
 - Badge "Recheado" para variantes especiais
 - Estado esgotado com tratamento em escala de cinza e botão desabilitado
+- Skeleton de carregamento nos números de estoque e nos controles do admin enquanto o primeiro snapshot do Firestore ainda não chegou, evitando mostrar uma quantidade desatualizada ou incorreta
 
 ### Carrinho de Compras
 - Estado global do carrinho gerenciado via React Context (`CartContext`)
-- Adicionar/remover itens
-- Pedido enviado diretamente pelo WhatsApp com resumo completo dos produtos
+- Adicionar/remover itens, com quantidade limitada ao estoque disponível
+- Pedido enviado diretamente pelo WhatsApp com resumo completo dos produtos e total
+- No checkout, o estoque é descontado de forma atômica no Firestore usando um `increment()` em lote (`batch`) — seguro mesmo se vários clientes finalizarem pedido ao mesmo tempo
 
 ### Modo Administrador
-- Modo admin oculto ativado por uma interação secreta
+- Modo admin oculto ativado por uma interação secreta (5 cliques na logo + senha)
 - Permite editar o estoque diretamente em cada card de produto (incrementar/decrementar/input manual)
+- As alterações de estoque são gravadas no Firestore e propagadas em tempo real para todas as abas/dispositivos abertos (celular da dona, navegadores dos clientes) via `onSnapshot`
 - Badge indicador visual quando o modo admin está ativo
 
 ---
@@ -156,6 +168,7 @@ A identidade visual é construída em torno de uma estética artesanal e aconche
 ### Pré-requisitos
 - Node.js 18+
 - npm ou yarn
+- Um projeto Firebase com Firestore ativado (veja [Configuração do Firebase](#-configuração-do-firebase) abaixo)
 
 ### Instalação
 
@@ -187,26 +200,41 @@ npm run preview
 
 ---
 
-## 🌐 Deploy
+## 🔥 Configuração do Firebase
 
-O projeto está publicado na **Vercel** sem necessidade de configuração. Qualquer push para a branch `main` dispara um deploy automático.
+O estoque é armazenado em uma coleção do Firestore chamada `products`, com um documento por produto (o ID do documento é igual ao `id` do produto em `src/features/products/data/products.ts`), cada um contendo apenas o campo `stock` (number).
 
-Para publicar sua própria instância:
+1. Crie um projeto no Firebase e ative o **Firestore Database**.
+2. Crie a coleção `products` com um documento por produto, ex: `tradicional`, `linguica`, `goiabada`, cada um com um campo `stock`.
+3. Configure as regras de segurança do Firestore para permitir leitura e escrita públicas na coleção `products` (não usamos Firebase Auth — o acesso à edição de estoque é controlado pela senha do admin no lado do cliente):
 
-1. Faça um fork do repositório
-2. Importe-o em [vercel.com](https://vercel.com)
-3. Publique — a Vercel detecta o Vite automaticamente
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
+```
+
+4. Registre um Web App no console do Firebase e coloque a configuração em `src/lib/firebase.ts`.
 
 ---
 
 ## 📦 Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz se necessário:
+Crie um arquivo `.env` na raiz:
 
 ```env
-# Atualmente não há variáveis de ambiente obrigatórias
-# O número do WhatsApp é configurado diretamente na feature whatsapp
+VITE_ADMIN_PASSWORD=sua-senha-de-admin
 ```
+
+Essa senha controla o acesso ao modo admin oculto (5 cliques na logo). A configuração web do Firebase em `src/lib/firebase.ts` não é sensível (ela só identifica o projeto; o controle de acesso real é feito pelas regras do Firestore), por isso fica direto no código em vez de no `.env`.
+
+O número do WhatsApp é configurado diretamente na feature `whatsapp` e no `CartDrawer.tsx`.
 
 ---
 
