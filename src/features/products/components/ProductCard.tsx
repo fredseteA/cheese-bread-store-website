@@ -11,14 +11,14 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { isAdminMode, updateStock, addToCart } = useStore();
+  const { isAdminMode, updateStock, addToCart, stockLoading } = useStore();
   const isAvailable = product.stock > 0;
 
   const formatPrice = (price: number) =>
     price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   const handleAddToCart = () => {
-    if (!isAvailable) return;
+    if (!isAvailable || stockLoading) return;
     addToCart(product);
     toast({
       title: "Adicionado ao carrinho!",
@@ -59,7 +59,8 @@ export function ProductCard({ product }: ProductCardProps) {
           </Badge>
         )}
 
-        {!isAvailable && (
+        {/* Só mostra "Esgotado" depois que o estoque real do Firestore chegou */}
+        {!stockLoading && !isAvailable && (
           <Badge className="absolute top-3 right-3 z-10 bg-destructive text-destructive-foreground font-body">
             Esgotado
           </Badge>
@@ -110,69 +111,87 @@ export function ProductCard({ product }: ProductCardProps) {
               Pacote com 30 un.
             </span>
           </div>
-          <span
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: isAvailable ? "#7ec97a" : "#c0392b",
-              fontFamily: "'Inter', sans-serif",
-            }}
-          >
-            {isAvailable ? `${product.stock} disp.` : "Indisponível"}
-          </span>
+
+          {stockLoading ? (
+            <span
+              className="animate-pulse inline-block rounded-full"
+              style={{ width: 52, height: 13, background: "rgba(245,232,208,0.15)" }}
+            />
+          ) : (
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: isAvailable ? "#7ec97a" : "#c0392b",
+                fontFamily: "'Inter', sans-serif",
+              }}
+            >
+              {isAvailable ? `${product.stock} disp.` : "Indisponível"}
+            </span>
+          )}
         </div>
 
         {/* Controles admin */}
         {isAdminMode && (
           <div className="mb-2.5 p-2 rounded-xl" style={{ background: "rgba(196,120,32,0.1)", border: "1px solid rgba(196,120,32,0.2)" }}>
             <p style={{ fontSize: 10, color: "rgba(245,232,208,0.5)", marginBottom: 5, fontFamily: "'Inter', sans-serif" }}>
-              Estoque:
+              {stockLoading ? "Carregando estoque..." : "Estoque:"}
             </p>
-            <div className="flex items-center gap-1.5">
-              <Button
-                variant="outline" size="icon"
-                onClick={() => handleStockChange(product.stock - 1)}
-                disabled={product.stock <= 0}
-                className="h-6 w-6"
-              >
-                <Minus className="h-3 w-3" />
-              </Button>
-              <Input
-                type="number"
-                value={product.stock}
-                onChange={(e) => handleStockChange(parseInt(e.target.value) || 0)}
-                className="h-6 w-12 text-center text-xs font-body"
-                min="0"
+
+            {stockLoading ? (
+              <div
+                className="animate-pulse rounded"
+                style={{ height: 24, width: "100%", background: "rgba(245,232,208,0.1)" }}
               />
-              <Button
-                variant="outline" size="icon"
-                onClick={() => handleStockChange(product.stock + 1)}
-                className="h-6 w-6"
-              >
-                <Plus className="h-3 w-3" />
-              </Button>
-            </div>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <Button
+                  variant="outline" size="icon"
+                  onClick={() => handleStockChange(product.stock - 1)}
+                  disabled={product.stock <= 0}
+                  className="h-6 w-6"
+                >
+                  <Minus className="h-3 w-3" />
+                </Button>
+                <Input
+                  type="number"
+                  value={product.stock}
+                  onChange={(e) => handleStockChange(parseInt(e.target.value) || 0)}
+                  className="h-6 w-12 text-center text-xs font-body"
+                  min="0"
+                />
+                <Button
+                  variant="outline" size="icon"
+                  onClick={() => handleStockChange(product.stock + 1)}
+                  className="h-6 w-6"
+                >
+                  <Plus className="h-3 w-3" />
+                </Button>
+              </div>
+            )}
           </div>
         )}
 
         {/* Botão */}
         <button
           onClick={handleAddToCart}
-          disabled={!isAvailable}
+          disabled={!isAvailable || stockLoading}
           className="w-full flex items-center justify-center gap-1.5 rounded-full font-bold transition-all hover:opacity-88 active:scale-95 disabled:cursor-not-allowed"
           style={{
-            background: isAvailable ? "#c47820" : "rgba(245,232,208,0.08)",
-            color: isAvailable ? "#1a0f05" : "rgba(245,232,208,0.3)",
+            background: isAvailable && !stockLoading ? "#c47820" : "rgba(245,232,208,0.08)",
+            color: isAvailable && !stockLoading ? "#1a0f05" : "rgba(245,232,208,0.3)",
             fontFamily: "'Inter', sans-serif",
             fontSize: 11,
             letterSpacing: "0.07em",
             textTransform: "uppercase",
             padding: "8px 12px",
             border: "none",
-            cursor: isAvailable ? "pointer" : "not-allowed",
+            cursor: isAvailable && !stockLoading ? "pointer" : "not-allowed",
           }}
         >
-          {isAvailable ? (
+          {stockLoading ? (
+            "Carregando..."
+          ) : isAvailable ? (
             <>
               <ShoppingCart style={{ width: 12, height: 12 }} />
               Adicionar

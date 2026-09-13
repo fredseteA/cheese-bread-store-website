@@ -1,12 +1,13 @@
 # 🧀 Pão de Queijo Mineiro — Artisan Cheese Bread Store
 
-> An e-commerce landing page for a homemade Minas Gerais cheese bread brand, built with React + Vite + TypeScript.
+> An e-commerce landing page for a homemade Minas Gerais cheese bread brand, built with React + Vite + TypeScript + Firebase.
 
 ![Deploy](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite)
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-3-38BDF8?logo=tailwindcss)
+![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?logo=firebase)
 
 ---
 
@@ -14,7 +15,7 @@
 
 **Pão de Queijo Mineiro** is an artisan food brand born in Iguatama, Minas Gerais. This website serves as a digital storefront and brand presentation, combining a warm visual identity with functional e-commerce features.
 
-The site tells the story behind the brand — a family recipe passed down through generations — while allowing customers to browse products, manage a cart, and place orders directly via WhatsApp.
+The site tells the story behind the brand — a family recipe passed down through generations — while allowing customers to browse products, manage a cart, and place orders directly via WhatsApp. Stock levels are synced in real time across every device through Firebase Firestore, so the store owner can update availability from her phone and customers always see accurate numbers.
 
 Live: **[paodequeijomineiro.vercel.app](https://paodequeijomineiro.vercel.app)**
 
@@ -31,17 +32,24 @@ cheese-bread-store-website/
     ├── assets/                      # Images (hero, product photos, cheese photos)
     ├── components/
     │   ├── layout/
-    │   │   ├── Header.tsx
+    │   │   ├── Header.tsx           # Includes hidden admin-mode trigger (5 clicks + password)
     │   │   └── Footer.tsx
     │   └── ui/                      # Shared UI components (shadcn/ui)
     ├── features/
     │   ├── carts/
-    │   │   └── context/
-    │   │       └── CartContext.tsx   # Global cart + admin mode state
-    │   ├── products/
+    │   │   ├── context/
+    │   │   │   └── CartContext.tsx  # Global cart + admin mode + live Firestore stock sync
     │   │   └── components/
-    │   │       └── ProductCard.tsx   # Product card with stock management
+    │   │       └── CartDrawer.tsx   # Cart UI + WhatsApp checkout (decrements stock)
+    │   ├── products/
+    │   │   ├── components/
+    │   │   │   └── ProductCard.tsx  # Product card with stock management + loading state
+    │   │   ├── data/
+    │   │   │   └── products.ts      # Static product data (name, price, image, description)
+    │   │   └── types.ts
     │   └── whatsapp/                 # WhatsApp order integration
+    ├── lib/
+    │   └── firebase.ts               # Firebase app initialization + Firestore instance
     ├── layouts/
     │   ├── App.css
     │   └── index.css                 # Global styles + Tailwind directives
@@ -78,6 +86,7 @@ cheese-bread-store-website/
 | **shadcn/ui** | Accessible UI primitives |
 | **Lucide React** | Icon library |
 | **React Router** | Client-side routing |
+| **Firebase Firestore** | Real-time, cross-device stock persistence |
 
 ---
 
@@ -107,19 +116,22 @@ Brand story and heritage page. Contains:
 ## 🛒 Features
 
 ### Product Catalog
-- Dynamic product grid loaded from context
+- Dynamic product grid loaded from context, with core data (name, price, description, image) defined locally and stock synced live from Firestore
 - Each card displays: name, description, price, stock availability
 - "Recheado" (stuffed) badge for special variants
 - Sold-out state with grayscale treatment and disabled button
+- Loading skeleton for stock numbers and admin controls while the initial Firestore snapshot is still arriving, so no stale/incorrect quantity is ever shown
 
 ### Shopping Cart
 - Global cart state managed via React Context (`CartContext`)
-- Add/remove items
-- Order sent directly via WhatsApp with full product summary
+- Add/remove items, quantity capped to available stock
+- Order sent directly via WhatsApp with full product summary and total
+- On checkout, stock is atomically decremented in Firestore using a batched `increment()` write — safe even if multiple customers check out at the same time
 
 ### Admin Mode
-- Hidden admin mode toggled via a secret interaction
+- Hidden admin mode toggled via a secret interaction (5 clicks on the logo + password)
 - Allows stock editing directly on each product card (increment/decrement/input)
+- Stock edits are written to Firestore and propagate in real time to every open tab/device (owner's phone, customer browsers) via `onSnapshot`
 - Visual indicator badge when admin mode is active
 
 ---
@@ -156,6 +168,7 @@ The visual identity is built around a warm, artisan aesthetic inspired by the Mi
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
+- A Firebase project with Firestore enabled (see [Firebase Setup](#-firebase-setup) below)
 
 ### Installation
 
@@ -187,26 +200,41 @@ npm run preview
 
 ---
 
-## 🌐 Deployment
+## 🔥 Firebase Setup
 
-The project is deployed on **Vercel** with zero configuration. Any push to `main` triggers an automatic deployment.
+Stock levels are stored in a Firestore collection named `products`, with one document per product (document ID matching the product's `id` in `src/features/products/data/products.ts`), each holding a single `stock` (number) field.
 
-To deploy your own instance:
+1. Create a Firebase project and enable **Firestore Database**.
+2. Create the `products` collection with one document per product, e.g. `tradicional`, `linguica`, `goiabada`, each with a `stock` field.
+3. Set Firestore security rules to allow public read and write on the `products` collection (no Firebase Auth is used — access to stock editing is gated client-side by the admin password instead):
 
-1. Fork the repository
-2. Import it on [vercel.com](https://vercel.com)
-3. Deploy — Vercel auto-detects Vite
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
+```
+
+4. Register a Web App in the Firebase console and drop the config into `src/lib/firebase.ts`.
 
 ---
 
 ## 📦 Environment Variables
 
-Create a `.env` file in the root if needed:
+Create a `.env` file in the root:
 
 ```env
-# Currently no required environment variables
-# WhatsApp number is configured directly in the whatsapp feature
+VITE_ADMIN_PASSWORD=your-admin-password
 ```
+
+This password gates the hidden admin mode (5 clicks on the logo). The Firebase web config in `src/lib/firebase.ts` is not sensitive (it only identifies the project; actual access control is handled by Firestore rules) so it's committed directly rather than kept in `.env`.
+
+WhatsApp number is configured directly in the `whatsapp` feature and `CartDrawer.tsx`.
 
 ---
 

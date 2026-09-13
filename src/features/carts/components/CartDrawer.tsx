@@ -14,9 +14,8 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
-  const { cart, updateCartQuantity, removeFromCart, clearCart, getCartTotal } = useStore();
+  const { cart, updateCartQuantity, removeFromCart, clearCart, checkoutCart, getCartTotal } = useStore();
 
-  // Formatar preço em Real brasileiro
   const formatPrice = (price: number) => {
     return price.toLocaleString("pt-BR", {
       style: "currency",
@@ -24,8 +23,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     });
   };
 
-  // Montar mensagem para WhatsApp
-  const sendToWhatsApp = () => {
+  const sendToWhatsApp = async () => {
     if (cart.length === 0) return;
 
     const items = cart
@@ -38,11 +36,13 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     const total = formatPrice(getCartTotal());
     const message = `Olá! Gostaria de fazer um pedido:\n\n${items}\n\n*Total: ${total}* + Frete`;
 
-    // Número de WhatsApp da empresa 
     const phoneNumber = "5522981382606";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, "_blank");
+
+    await checkoutCart();
+    onClose();
   };
 
   return (
